@@ -1,6 +1,5 @@
-import java.lang.Exception
 
-class MoveGenerator() {
+class MoveGenerator {
 
     fun generatePossibleMoves(position: Position) {
         for(x in 0..7) {
@@ -103,11 +102,10 @@ class MoveGenerator() {
         }
     }
     fun doMove(pos: Position, x_old: Int, y_old: Int, x_new: Int, y_new: Int): Position {
-        val newposition: Position = Position()
+        val newposition = Position()
 
         for(x in 0..7) {
             for(y in 0..7) {
-                var pieceType: Piece
                 newposition.setPiece(pos.board[x][y], x, y)
             }
         }

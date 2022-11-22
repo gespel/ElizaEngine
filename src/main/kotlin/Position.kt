@@ -1,4 +1,4 @@
-class Position() {
+class Position {
     lateinit var currentColor: Color
     var board: Array<Array<Piece>> = Array(8) {
         Array(8) {

@@ -1,7 +1,7 @@
-fun main(args: Array<String>) {
+fun main() {
     println("Hello World!")
-    var sp = Position()
-    var mg = MoveGenerator()
+    val sp = Position()
+    val mg = MoveGenerator()
 
     sp.setPiece(Piece.WHITE_KNIGHT, 3, 3)
     sp.currentColor = Color.WHITE

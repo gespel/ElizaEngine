@@ -1,7 +1,7 @@
 class BoardTools {
     companion object {
         fun printBoard(position: Position) {
-            var b = position.board
+            val b = position.board
             var all = ""
             for(y in 7 downTo 0) {
                 var line = ""
@@ -21,14 +21,10 @@ class BoardTools {
                         Piece.BLACK_KNIGHT -> "|BK|"
                         Piece.BLACK_QUEEN -> "|Bq|"
                         Piece.BLACK_ROOK -> "|Br|"
-
-                        else -> {
-                            "|00|"
-                        }
                     }
                 }
                 //all += "-----------------------------------------\n"
-                all += "|" + line + "|\n"
+                all += "|$line|\n"
             }
             println(all)
         }
