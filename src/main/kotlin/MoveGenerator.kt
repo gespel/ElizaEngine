@@ -1,64 +1,102 @@
 import java.lang.Exception
 
-enum class Piece {
-    WHITE_PAWN, WHITE_BISHOPH, WHITE_KNIGHT, WHITE_ROOK, WHITE_QUEEN, WHITE_KING,
-    BLACK_PAWN, BLACK_BISHOPH, BLACK_KNIGHT, BLACK_ROOK, BLACK_QUEEN, BLACK_KING,
-    EMPTY
-}
-enum class Color {
-    BLACK, WHITE
-}
+class MoveGenerator() {
 
-class Position() {
-    var board: Array<Array<Piece>> = Array(8) {
-        Array(8) {
-            Piece.EMPTY
-        }
-    }
-    var moves = mutableSetOf<Position>()
-    fun setPiece(p: Piece, x: Int, y: Int) {
-        this.board[x][y] = p
-    }
-    fun addPossiblePosition(p: Position) {
-        moves.add(p)
-    }
-}
-
-class MoveGenerator(var startPosition: Position) {
-
-    fun generatePossibleMoves() {
+    fun generatePossibleMoves(position: Position) {
         for(x in 0..7) {
             for(y in 0..7) {
-                val currBoard = this.startPosition.board
-
-                if(currBoard[x][y] == Piece.WHITE_PAWN) {
-                    if(y+1 <= 7) {
-                        if(x-1 >= 0) {
-                            if(getColor(this.startPosition, x-1, y+1) == Color.BLACK) {
-                                startPosition.addPossiblePosition(
-                                    doMove(startPosition, x, y, x-1, y+1)
+                val currBoard = position.board
+                if(position.currentColor == Color.WHITE) {
+                    if (currBoard[x][y] == Piece.WHITE_PAWN) {
+                        if (y + 1 <= 7) {
+                            if (x - 1 >= 0) {
+                                if (getColor(position, x - 1, y + 1) == Color.BLACK) {
+                                    position.addPossiblePosition(
+                                        doMove(position, x, y, x - 1, y + 1)
+                                    )
+                                }
+                            }
+                            if (x + 1 <= 7) {
+                                if (getColor(position, x + 1, y + 1) == Color.BLACK) {
+                                    position.addPossiblePosition(
+                                        doMove(position, x, y, x + 1, y + 1)
+                                    )
+                                }
+                            }
+                            if (currBoard[x][y + 1] == Piece.EMPTY) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x, y + 1)
                                 )
                             }
                         }
-                        if(x+1 <= 7) {
-                            if(getColor(this.startPosition, x+1, y+1) == Color.BLACK) {
-                                startPosition.addPossiblePosition(
-                                    doMove(startPosition, x, y, x+1, y+1)
+                        if (y == 1) {
+                            if (currBoard[x][y + 2] == Piece.EMPTY) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x, y + 2)
                                 )
                             }
-                        }
-                        if(currBoard[x][y+1] == Piece.EMPTY) {
-                            startPosition.addPossiblePosition(
-                                doMove(startPosition, x, y, x, y+1)
-                            )
                         }
                     }
-                    if(y+2 <= 7) {
-                        if(currBoard[x][y+2] == Piece.EMPTY) {
-                            startPosition.addPossiblePosition(
-                                doMove(startPosition, x, y, x, y+2)
-                            )
+                    //========================================================================================
+                    if (currBoard[x][y] == Piece.WHITE_KNIGHT) {
+                        println("CALL")
+                        if (x + 2 <= 7 && y + 1 <= 7) {
+                            if (getColor(position, x + 2, y + 1) != Color.WHITE) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x + 2, y + 1)
+                                )
+                            }
                         }
+                        if (x + 1 <= 7 && y + 2 <= 7) {
+                            if (getColor(position, x + 1, y + 2) != Color.WHITE) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x + 1, y + 2)
+                                )
+                            }
+                        }
+                        if (x - 2 >= 0 && y + 1 <= 7) {
+                            if (getColor(position, x - 2, y + 1) != Color.WHITE) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x - 2, y + 1)
+                                )
+                            }
+                        }
+                        if (x - 1 >= 0 && y + 2 <= 7) {
+                            if (getColor(position, x - 1, y + 2) != Color.WHITE) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x - 1, y + 2)
+                                )
+                            }
+                        }
+                        if (x + 2 <= 7 && y - 1 >= 0) {
+                            if (getColor(position, x + 2, y - 1) != Color.WHITE) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x + 2, y - 1)
+                                )
+                            }
+                        }
+                        if (x + 1 <= 7 && y - 2 >= 0) {
+                            if (getColor(position, x + 1, y - 2) != Color.WHITE) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x + 1, y - 2)
+                                )
+                            }
+                        }
+                        if (x - 2 >= 0 && y - 1 >= 0) {
+                            if (getColor(position, x - 2, y - 1) != Color.WHITE) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x - 2, y - 1)
+                                )
+                            }
+                        }
+                        if (x - 1 >= 0 && y - 2 >= 0) {
+                            if (getColor(position, x - 1, y - 2) != Color.WHITE) {
+                                position.addPossiblePosition(
+                                    doMove(position, x, y, x - 1, y - 2)
+                                )
+                            }
+                        }
+                        //========================================================================================
                     }
                 }
             }
