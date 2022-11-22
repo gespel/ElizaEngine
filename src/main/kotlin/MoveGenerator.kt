@@ -115,6 +115,14 @@ class MoveGenerator() {
 
         newposition.board[x_new][y_new] = newposition.board[x_old][y_old]
         newposition.board[x_old][y_old] = Piece.EMPTY
+
+        if(pos.currentColor == Color.WHITE) {
+            newposition.currentColor = Color.BLACK
+        }
+        else if(pos.currentColor == Color.BLACK) {
+            newposition.currentColor = Color.WHITE
+        }
+
         return  newposition
     }
     fun getColor(pos: Position, x: Int, y: Int): Color? {
